@@ -96,16 +96,8 @@ func TestDeleteSchedule_Success(t *testing.T) {
 		t.Fatalf("AddSchedule failed: %v", err)
 	}
 
-	// Get ID from ListSchedules
-	list, err := s.ListSchedules(ctx, &schedulepb.Empty{})
-	if err != nil || len(list.Schedules) != 1 {
-		t.Fatalf("Expected 1 schedule to delete, got: %v", list.Schedules)
-	}
-
-	id := list.Schedules[0].Id
-
 	// Delete it
-	delResp, err := s.DeleteSchedule(ctx, &schedulepb.ScheduleId{Id: id})
+	delResp, err := s.DeleteSchedule(ctx, &schedulepb.ScheduleIdx{Idx: 1})
 	if err != nil {
 		t.Fatalf("DeleteSchedule failed: %v", err)
 	}
@@ -126,11 +118,11 @@ func TestDeleteSchedule_NotFound(t *testing.T) {
 
 	ctx := context.TODO()
 
-	resp, err := s.DeleteSchedule(ctx, &schedulepb.ScheduleId{Id: "non-existent-id"})
+	resp, err := s.DeleteSchedule(ctx, &schedulepb.ScheduleIdx{Idx: 999})
 	if err != nil {
 		t.Fatalf("DeleteSchedule returned error: %v", err)
 	}
-	if resp.Message != "Schedule not found." {
-		t.Errorf("Expected 'Schedule not found.', got '%s'", resp.Message)
+	if resp.Message != "Invalid index" {
+		t.Errorf("Expected 'Invalid index', got '%s'", resp.Message)
 	}
 }

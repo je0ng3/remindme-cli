@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-grpc v1.5.1
 // - protoc             v5.29.3
-// source: api/proto/schedule.proto
+// source: schedule.proto
 
 package schedulepb
 
@@ -30,7 +30,7 @@ const (
 type SchedulerClient interface {
 	AddSchedule(ctx context.Context, in *ScheduleRequest, opts ...grpc.CallOption) (*ScheduleResponse, error)
 	ListSchedules(ctx context.Context, in *Empty, opts ...grpc.CallOption) (*ScheduleList, error)
-	DeleteSchedule(ctx context.Context, in *ScheduleId, opts ...grpc.CallOption) (*ScheduleResponse, error)
+	DeleteSchedule(ctx context.Context, in *ScheduleIdx, opts ...grpc.CallOption) (*ScheduleResponse, error)
 }
 
 type schedulerClient struct {
@@ -61,7 +61,7 @@ func (c *schedulerClient) ListSchedules(ctx context.Context, in *Empty, opts ...
 	return out, nil
 }
 
-func (c *schedulerClient) DeleteSchedule(ctx context.Context, in *ScheduleId, opts ...grpc.CallOption) (*ScheduleResponse, error) {
+func (c *schedulerClient) DeleteSchedule(ctx context.Context, in *ScheduleIdx, opts ...grpc.CallOption) (*ScheduleResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(ScheduleResponse)
 	err := c.cc.Invoke(ctx, Scheduler_DeleteSchedule_FullMethodName, in, out, cOpts...)
@@ -77,7 +77,7 @@ func (c *schedulerClient) DeleteSchedule(ctx context.Context, in *ScheduleId, op
 type SchedulerServer interface {
 	AddSchedule(context.Context, *ScheduleRequest) (*ScheduleResponse, error)
 	ListSchedules(context.Context, *Empty) (*ScheduleList, error)
-	DeleteSchedule(context.Context, *ScheduleId) (*ScheduleResponse, error)
+	DeleteSchedule(context.Context, *ScheduleIdx) (*ScheduleResponse, error)
 	mustEmbedUnimplementedSchedulerServer()
 }
 
@@ -94,7 +94,7 @@ func (UnimplementedSchedulerServer) AddSchedule(context.Context, *ScheduleReques
 func (UnimplementedSchedulerServer) ListSchedules(context.Context, *Empty) (*ScheduleList, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ListSchedules not implemented")
 }
-func (UnimplementedSchedulerServer) DeleteSchedule(context.Context, *ScheduleId) (*ScheduleResponse, error) {
+func (UnimplementedSchedulerServer) DeleteSchedule(context.Context, *ScheduleIdx) (*ScheduleResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteSchedule not implemented")
 }
 func (UnimplementedSchedulerServer) mustEmbedUnimplementedSchedulerServer() {}
@@ -155,7 +155,7 @@ func _Scheduler_ListSchedules_Handler(srv interface{}, ctx context.Context, dec 
 }
 
 func _Scheduler_DeleteSchedule_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(ScheduleId)
+	in := new(ScheduleIdx)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -167,7 +167,7 @@ func _Scheduler_DeleteSchedule_Handler(srv interface{}, ctx context.Context, dec
 		FullMethod: Scheduler_DeleteSchedule_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(SchedulerServer).DeleteSchedule(ctx, req.(*ScheduleId))
+		return srv.(SchedulerServer).DeleteSchedule(ctx, req.(*ScheduleIdx))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -193,5 +193,5 @@ var Scheduler_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "api/proto/schedule.proto",
+	Metadata: "schedule.proto",
 }

@@ -84,15 +84,15 @@ func (s *ScheduleServer) ListSchedules(ctx context.Context, _ *schedulepb.Empty)
 	fmt.Println("Schedules:")
 	w := tabwriter.NewWriter(os.Stdout, 0, 0, 2, ' ', 0)
 	fmt.Fprintln(w, "ID\tTitle\tDatetime\tURL\tMemo")
-	for _, sch := range list {
-		fmt.Fprintf(w, "%s\t%s\t%s\t%s\t%s\n", sch.Id, sch.Title, sch.Datetime, sch.Url, sch.Memo)
+	for i, sch := range list {
+		fmt.Fprintf(w, "%d\t%s\t%s\t%s\t%s\n", i+1, sch.Title, sch.Datetime, sch.Url, sch.Memo)
 	}
 	w.Flush()
 
 	return &schedulepb.ScheduleList{Schedules: list}, nil
 }
 
-func (s *ScheduleServer) DeleteSchedule(ctx context.Context, req *schedulepb.ScheduleId) (*schedulepb.ScheduleResponse, error) {
+func (s *ScheduleServer) DeleteSchedule(ctx context.Context, req *schedulepb.ScheduleIdx) (*schedulepb.ScheduleResponse, error) {
 	s.mu.Lock()
 	defer s.mu.Unlock()
 
@@ -108,28 +108,25 @@ func (s *ScheduleServer) DeleteSchedule(ctx context.Context, req *schedulepb.Sch
 		return nil, err
 	}
 
-	var updated [][]string
-	deleted := false
-	for _, r := range records {
-		if r[0] == req.Id {
-			deleted = true
-			continue
-		}
-		updated = append(updated, r)
+	idx := int(req.Idx) - 1
+	if idx < 0 || idx >= len(records) {
+		return &schedulepb.ScheduleResponse{Message: "Invalid index"}, nil
 	}
-	if !deleted {
-		return &schedulepb.ScheduleResponse{Message: "Schedule not found."}, nil
-	}
+	records = append(records[:idx], records[idx+1:]...)
 
-	file, err = os.Create(s.csvFile)
+	updatedFile, err := os.Create(s.csvFile)
 	if err != nil {
 		return nil, err
 	}
-	defer file.Close()
+	defer updatedFile.Close()
 
-	writer := csv.NewWriter(file)
+	writer := csv.NewWriter(updatedFile)
 	defer writer.Flush()
-	writer.WriteAll(updated)
+	
+	err = writer.WriteAll(records)
+	if err != nil {
+		return nil, err
+	}
 
 	return &schedulepb.ScheduleResponse{Message: "Schedule deleted."}, nil
 }

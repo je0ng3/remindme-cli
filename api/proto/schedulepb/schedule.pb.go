@@ -2,7 +2,7 @@
 // versions:
 // 	protoc-gen-go v1.36.6
 // 	protoc        v5.29.3
-// source: api/proto/schedule.proto
+// source: schedule.proto
 
 package schedulepb
 
@@ -34,7 +34,7 @@ type ScheduleRequest struct {
 
 func (x *ScheduleRequest) Reset() {
 	*x = ScheduleRequest{}
-	mi := &file_api_proto_schedule_proto_msgTypes[0]
+	mi := &file_schedule_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -46,7 +46,7 @@ func (x *ScheduleRequest) String() string {
 func (*ScheduleRequest) ProtoMessage() {}
 
 func (x *ScheduleRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_api_proto_schedule_proto_msgTypes[0]
+	mi := &file_schedule_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -59,7 +59,7 @@ func (x *ScheduleRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ScheduleRequest.ProtoReflect.Descriptor instead.
 func (*ScheduleRequest) Descriptor() ([]byte, []int) {
-	return file_api_proto_schedule_proto_rawDescGZIP(), []int{0}
+	return file_schedule_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *ScheduleRequest) GetId() string {
@@ -97,28 +97,28 @@ func (x *ScheduleRequest) GetMemo() string {
 	return ""
 }
 
-type ScheduleId struct {
+type ScheduleIdx struct {
 	state         protoimpl.MessageState `protogen:"open.v1"`
-	Id            string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	Idx           int32                  `protobuf:"varint,1,opt,name=idx,proto3" json:"idx,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
 
-func (x *ScheduleId) Reset() {
-	*x = ScheduleId{}
-	mi := &file_api_proto_schedule_proto_msgTypes[1]
+func (x *ScheduleIdx) Reset() {
+	*x = ScheduleIdx{}
+	mi := &file_schedule_proto_msgTypes[1]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
 
-func (x *ScheduleId) String() string {
+func (x *ScheduleIdx) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*ScheduleId) ProtoMessage() {}
+func (*ScheduleIdx) ProtoMessage() {}
 
-func (x *ScheduleId) ProtoReflect() protoreflect.Message {
-	mi := &file_api_proto_schedule_proto_msgTypes[1]
+func (x *ScheduleIdx) ProtoReflect() protoreflect.Message {
+	mi := &file_schedule_proto_msgTypes[1]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -129,16 +129,16 @@ func (x *ScheduleId) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use ScheduleId.ProtoReflect.Descriptor instead.
-func (*ScheduleId) Descriptor() ([]byte, []int) {
-	return file_api_proto_schedule_proto_rawDescGZIP(), []int{1}
+// Deprecated: Use ScheduleIdx.ProtoReflect.Descriptor instead.
+func (*ScheduleIdx) Descriptor() ([]byte, []int) {
+	return file_schedule_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *ScheduleId) GetId() string {
+func (x *ScheduleIdx) GetIdx() int32 {
 	if x != nil {
-		return x.Id
+		return x.Idx
 	}
-	return ""
+	return 0
 }
 
 type ScheduleList struct {
@@ -150,7 +150,7 @@ type ScheduleList struct {
 
 func (x *ScheduleList) Reset() {
 	*x = ScheduleList{}
-	mi := &file_api_proto_schedule_proto_msgTypes[2]
+	mi := &file_schedule_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -162,7 +162,7 @@ func (x *ScheduleList) String() string {
 func (*ScheduleList) ProtoMessage() {}
 
 func (x *ScheduleList) ProtoReflect() protoreflect.Message {
-	mi := &file_api_proto_schedule_proto_msgTypes[2]
+	mi := &file_schedule_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -175,7 +175,7 @@ func (x *ScheduleList) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ScheduleList.ProtoReflect.Descriptor instead.
 func (*ScheduleList) Descriptor() ([]byte, []int) {
-	return file_api_proto_schedule_proto_rawDescGZIP(), []int{2}
+	return file_schedule_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *ScheduleList) GetSchedules() []*ScheduleRequest {
@@ -194,7 +194,7 @@ type ScheduleResponse struct {
 
 func (x *ScheduleResponse) Reset() {
 	*x = ScheduleResponse{}
-	mi := &file_api_proto_schedule_proto_msgTypes[3]
+	mi := &file_schedule_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -206,7 +206,7 @@ func (x *ScheduleResponse) String() string {
 func (*ScheduleResponse) ProtoMessage() {}
 
 func (x *ScheduleResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_api_proto_schedule_proto_msgTypes[3]
+	mi := &file_schedule_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -219,7 +219,7 @@ func (x *ScheduleResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use ScheduleResponse.ProtoReflect.Descriptor instead.
 func (*ScheduleResponse) Descriptor() ([]byte, []int) {
-	return file_api_proto_schedule_proto_rawDescGZIP(), []int{3}
+	return file_schedule_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *ScheduleResponse) GetMessage() string {
@@ -237,7 +237,7 @@ type Empty struct {
 
 func (x *Empty) Reset() {
 	*x = Empty{}
-	mi := &file_api_proto_schedule_proto_msgTypes[4]
+	mi := &file_schedule_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -249,7 +249,7 @@ func (x *Empty) String() string {
 func (*Empty) ProtoMessage() {}
 
 func (x *Empty) ProtoReflect() protoreflect.Message {
-	mi := &file_api_proto_schedule_proto_msgTypes[4]
+	mi := &file_schedule_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -262,58 +262,57 @@ func (x *Empty) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Empty.ProtoReflect.Descriptor instead.
 func (*Empty) Descriptor() ([]byte, []int) {
-	return file_api_proto_schedule_proto_rawDescGZIP(), []int{4}
+	return file_schedule_proto_rawDescGZIP(), []int{4}
 }
 
-var File_api_proto_schedule_proto protoreflect.FileDescriptor
+var File_schedule_proto protoreflect.FileDescriptor
 
-const file_api_proto_schedule_proto_rawDesc = "" +
+const file_schedule_proto_rawDesc = "" +
 	"\n" +
-	"\x18api/proto/schedule.proto\x12\bschedule\"y\n" +
+	"\x0eschedule.proto\x12\bschedule\"y\n" +
 	"\x0fScheduleRequest\x12\x0e\n" +
 	"\x02id\x18\x01 \x01(\tR\x02id\x12\x14\n" +
 	"\x05title\x18\x02 \x01(\tR\x05title\x12\x1a\n" +
 	"\bdatetime\x18\x03 \x01(\tR\bdatetime\x12\x10\n" +
 	"\x03url\x18\x04 \x01(\tR\x03url\x12\x12\n" +
-	"\x04memo\x18\x05 \x01(\tR\x04memo\"\x1c\n" +
-	"\n" +
-	"ScheduleId\x12\x0e\n" +
-	"\x02id\x18\x01 \x01(\tR\x02id\"G\n" +
+	"\x04memo\x18\x05 \x01(\tR\x04memo\"\x1f\n" +
+	"\vScheduleIdx\x12\x10\n" +
+	"\x03idx\x18\x01 \x01(\x05R\x03idx\"G\n" +
 	"\fScheduleList\x127\n" +
 	"\tschedules\x18\x01 \x03(\v2\x19.schedule.ScheduleRequestR\tschedules\",\n" +
 	"\x10ScheduleResponse\x12\x18\n" +
 	"\amessage\x18\x01 \x01(\tR\amessage\"\a\n" +
-	"\x05Empty2\xcf\x01\n" +
+	"\x05Empty2\xd0\x01\n" +
 	"\tScheduler\x12D\n" +
 	"\vAddSchedule\x12\x19.schedule.ScheduleRequest\x1a\x1a.schedule.ScheduleResponse\x128\n" +
-	"\rListSchedules\x12\x0f.schedule.Empty\x1a\x16.schedule.ScheduleList\x12B\n" +
-	"\x0eDeleteSchedule\x12\x14.schedule.ScheduleId\x1a\x1a.schedule.ScheduleResponseB\x16Z\x14api/proto/schedulepbb\x06proto3"
+	"\rListSchedules\x12\x0f.schedule.Empty\x1a\x16.schedule.ScheduleList\x12C\n" +
+	"\x0eDeleteSchedule\x12\x15.schedule.ScheduleIdx\x1a\x1a.schedule.ScheduleResponseB\rZ\v/schedulepbb\x06proto3"
 
 var (
-	file_api_proto_schedule_proto_rawDescOnce sync.Once
-	file_api_proto_schedule_proto_rawDescData []byte
+	file_schedule_proto_rawDescOnce sync.Once
+	file_schedule_proto_rawDescData []byte
 )
 
-func file_api_proto_schedule_proto_rawDescGZIP() []byte {
-	file_api_proto_schedule_proto_rawDescOnce.Do(func() {
-		file_api_proto_schedule_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_api_proto_schedule_proto_rawDesc), len(file_api_proto_schedule_proto_rawDesc)))
+func file_schedule_proto_rawDescGZIP() []byte {
+	file_schedule_proto_rawDescOnce.Do(func() {
+		file_schedule_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_schedule_proto_rawDesc), len(file_schedule_proto_rawDesc)))
 	})
-	return file_api_proto_schedule_proto_rawDescData
+	return file_schedule_proto_rawDescData
 }
 
-var file_api_proto_schedule_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
-var file_api_proto_schedule_proto_goTypes = []any{
+var file_schedule_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
+var file_schedule_proto_goTypes = []any{
 	(*ScheduleRequest)(nil),  // 0: schedule.ScheduleRequest
-	(*ScheduleId)(nil),       // 1: schedule.ScheduleId
+	(*ScheduleIdx)(nil),      // 1: schedule.ScheduleIdx
 	(*ScheduleList)(nil),     // 2: schedule.ScheduleList
 	(*ScheduleResponse)(nil), // 3: schedule.ScheduleResponse
 	(*Empty)(nil),            // 4: schedule.Empty
 }
-var file_api_proto_schedule_proto_depIdxs = []int32{
+var file_schedule_proto_depIdxs = []int32{
 	0, // 0: schedule.ScheduleList.schedules:type_name -> schedule.ScheduleRequest
 	0, // 1: schedule.Scheduler.AddSchedule:input_type -> schedule.ScheduleRequest
 	4, // 2: schedule.Scheduler.ListSchedules:input_type -> schedule.Empty
-	1, // 3: schedule.Scheduler.DeleteSchedule:input_type -> schedule.ScheduleId
+	1, // 3: schedule.Scheduler.DeleteSchedule:input_type -> schedule.ScheduleIdx
 	3, // 4: schedule.Scheduler.AddSchedule:output_type -> schedule.ScheduleResponse
 	2, // 5: schedule.Scheduler.ListSchedules:output_type -> schedule.ScheduleList
 	3, // 6: schedule.Scheduler.DeleteSchedule:output_type -> schedule.ScheduleResponse
@@ -324,26 +323,26 @@ var file_api_proto_schedule_proto_depIdxs = []int32{
 	0, // [0:1] is the sub-list for field type_name
 }
 
-func init() { file_api_proto_schedule_proto_init() }
-func file_api_proto_schedule_proto_init() {
-	if File_api_proto_schedule_proto != nil {
+func init() { file_schedule_proto_init() }
+func file_schedule_proto_init() {
+	if File_schedule_proto != nil {
 		return
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_api_proto_schedule_proto_rawDesc), len(file_api_proto_schedule_proto_rawDesc)),
+			RawDescriptor: unsafe.Slice(unsafe.StringData(file_schedule_proto_rawDesc), len(file_schedule_proto_rawDesc)),
 			NumEnums:      0,
 			NumMessages:   5,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
-		GoTypes:           file_api_proto_schedule_proto_goTypes,
-		DependencyIndexes: file_api_proto_schedule_proto_depIdxs,
-		MessageInfos:      file_api_proto_schedule_proto_msgTypes,
+		GoTypes:           file_schedule_proto_goTypes,
+		DependencyIndexes: file_schedule_proto_depIdxs,
+		MessageInfos:      file_schedule_proto_msgTypes,
 	}.Build()
-	File_api_proto_schedule_proto = out.File
-	file_api_proto_schedule_proto_goTypes = nil
-	file_api_proto_schedule_proto_depIdxs = nil
+	File_schedule_proto = out.File
+	file_schedule_proto_goTypes = nil
+	file_schedule_proto_depIdxs = nil
 }

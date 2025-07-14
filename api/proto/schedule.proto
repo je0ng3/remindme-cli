@@ -1,11 +1,11 @@
 syntax = "proto3";
 package schedule;
-option go_package = "api/proto/schedulepb";
+option go_package = "/schedulepb";
 
 service Scheduler {
   rpc AddSchedule (ScheduleRequest) returns (ScheduleResponse);
   rpc ListSchedules (Empty) returns (ScheduleList);
-  rpc DeleteSchedule (ScheduleId) returns (ScheduleResponse);
+  rpc DeleteSchedule (ScheduleIdx) returns (ScheduleResponse);
 }
 
 message ScheduleRequest {
@@ -16,8 +16,8 @@ message ScheduleRequest {
   string memo = 5;
 }
 
-message ScheduleId {
-  string id = 1;
+message ScheduleIdx {
+  int32 idx = 1;
 }
 
 message ScheduleList {
