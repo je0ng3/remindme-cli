@@ -92,4 +92,44 @@ func (s *ScheduleServer) ListSchedules(ctx context.Context, _ *schedulepb.Empty)
 	return &schedulepb.ScheduleList{Schedules: list}, nil
 }
 
+func (s *ScheduleServer) DeleteSchedule(ctx context.Context, req *schedulepb.ScheduleId) (*schedulepb.ScheduleResponse, error) {
+	s.mu.Lock()
+	defer s.mu.Unlock()
 
+	file, err := os.Open(s.csvFile)
+	if err != nil {
+		return nil, err
+	}
+	defer file.Close()
+
+	reader := csv.NewReader(file)
+	records, err := reader.ReadAll()
+	if err != nil {
+		return nil, err
+	}
+
+	var updated [][]string
+	deleted := false
+	for _, r := range records {
+		if r[0] == req.Id {
+			deleted = true
+			continue
+		}
+		updated = append(updated, r)
+	}
+	if !deleted {
+		return &schedulepb.ScheduleResponse{Message: "Schedule not found."}, nil
+	}
+
+	file, err = os.Create(s.csvFile)
+	if err != nil {
+		return nil, err
+	}
+	defer file.Close()
+
+	writer := csv.NewWriter(file)
+	defer writer.Flush()
+	writer.WriteAll(updated)
+
+	return &schedulepb.ScheduleResponse{Message: "Schedule deleted."}, nil
+}
