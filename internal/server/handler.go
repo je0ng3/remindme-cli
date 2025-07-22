@@ -4,15 +4,13 @@ import (
 	"context"
 	"encoding/csv"
 	"errors"
-	"fmt"
 	"os"
-	"os/exec"
 	"sync"
 	"text/tabwriter"
-	"time"
 
 	"github.com/google/uuid"
 	schedulepb "github.com/je0ng3/remindme-cli/api/proto/schedulepb"
+	"github.com/je0ng3/remindme-cli/internal/watcher"
 )
 
 
@@ -52,7 +50,7 @@ func (s *ScheduleServer) AddSchedule(ctx context.Context, req *schedulepb.Schedu
 	if err != nil {
 		return nil, err
 	}
-	go s.WatchSchedule(req)
+	go watcher.Watch(req, s)
 	return &schedulepb.ScheduleResponse{Message: "Schedule added."}, nil
 }
 
@@ -130,48 +128,7 @@ func (s *ScheduleServer) DeleteSchedule(ctx context.Context, req *schedulepb.Sch
 }
 
 
-func (s *ScheduleServer) WatchSchedule (req *schedulepb.ScheduleRequest) {
-	layout := "2006-01-02 15:04"
-	loc := time.Local
-	t, err := time.ParseInLocation(layout, req.Datetime, loc)
-	if err != nil {
-		fmt.Println("날짜 포맷 불일치:", err)
-	}
-
-	duration := time.Until(t)
-	if duration <= 0 {
-		return
-	}
-	
-	time.Sleep(duration)
-
-	if s.scheduleExists(req.Id) {
-		err = notification(req.Title, req.Memo, req.Url)
-		if err != nil {
-			fmt.Println("알림 전송 실패:", err)
-		}
-		err = s.deleteExpiredSchedule(req.Id)
-		if err != nil {
-			fmt.Println("일정 삭제 실패:", err)
-		}
-	}
-}
-
-func notification(title, memo, url string) error {
-	args := []string {"-title", title}
-	if memo != "" {
-		args = append(args, "-message", memo)
-	}
-	if url != "" {
-		args = append(args, "-open", url)
-	}
-	fmt.Println(args)
-	cmd := exec.Command("terminal-notifier", args...)
-	return cmd.Run()
-}
-
-
-func (s *ScheduleServer) deleteExpiredSchedule(id string) error {
+func (s *ScheduleServer) Delete(id string) error {
 	s.mu.Lock()
 	defer s.mu.Unlock()
 
@@ -205,7 +162,7 @@ func (s *ScheduleServer) deleteExpiredSchedule(id string) error {
 	return writer.WriteAll(updatedRecords)
 }
 
-func (s *ScheduleServer) scheduleExists(id string) bool {
+func (s *ScheduleServer) Exists(id string) bool {
 	s.mu.Lock()
 	defer s.mu.Unlock()
 
